@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+    <properties resource="db.properties"/>
+    <settings>
+        <setting name="mapUnderscoreToCamelCase" value="true"/>
+        <setting name="lazyLoadingEnabled" value="true"/>
+        <setting name="useColumnLabel" value="true"/>
+        <setting name="useGeneratedKeys" value="true"/>
+        <setting name="logImpl" value="STDOUT_LOGGING"/>
+    </settings>
+    <typeAliases>
+        <typeAlias alias="Student" type="org.company.entity.Student" />
+        <typeAlias alias="Instructor" type="org.company.entity.Instructor" />
+        <typeAlias alias="Course" type="org.company.entity.Course" />
+    </typeAliases>
+
+    <typeHandlers>
+        <typeHandler javaType="org.company.entity.Gender"
+                     handler="org.company.GenderTypeHandler"
+                     jdbcType="VARCHAR"/>
+    </typeHandlers>
+
+    <objectFactory type="org.company.StudentObjectFactory"/>
+
+    <environments default="development">
+        <environment id="development">
+            <transactionManager type="JDBC"/>
+            <dataSource type="POOLED">
+                <property name="driver" value="${driver}"/>
+                <property name="url" value="${url}"/>
+                <property name="username" value="${user}"/>
+                <property name="password" value="${pass}"/>
+                <property name="poolMaximumActiveConnections" value="10"/>
+                <property name="poolMaximumIdleConnections" value="10"/>
+                <property name="poolMaximumCheckoutTime" value="10000"/>
+                <property name="poolTimeToWait" value="10000"/>
+                <property name="poolPingQuery" value="SELECT 1"/>
+                <property name="poolPingEnabled" value="true"/>
+            </dataSource>
+        </environment>
+    </environments>
+
+    <mappers>
+        <mapper resource="mapper/StudentMapper.xml"/>
+        <mapper resource="mapper/StudentSqlFragments.xml"/>
+        <mapper resource="mapper/CourseMapper.xml"/>
+        <mapper resource="mapper/InstructorDynamicMapper.xml"/>
+    </mappers>
+</configuration>

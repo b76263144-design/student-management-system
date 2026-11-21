@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.company.StudentMapper">
+
+    <select id="getStudentById" parameterType="int" resultType="org.company.entity.Student">
+        SELECT
+            <include refid="mapper.StudentSqlFragments.studentColumns"/>
+        <include refid="mapper.StudentSqlFragments.fromStudent"/>
+        WHERE Id = #{studentId}
+    </select>
+
+    <select id="getAllStudents" resultType="org.company.entity.Student">
+        SELECT
+            <include refid="mapper.StudentSqlFragments.studentColumns"/>
+        <include refid="mapper.StudentSqlFragments.fromStudent"/>
+    </select>
+
+    <insert id="addStudent" parameterType="org.company.entity.Student"
+            useGeneratedKeys="true" keyProperty="studentId">
+        INSERT INTO Student(Name, Age, Gender, Course)
+        VALUES(#{studentName}, #{studentAge}, #{studentGender}, #{studentCourse})
+    </insert>
+
+    <update id="updateStudent" parameterType="org.company.entity.Student">
+        UPDATE Student
+        SET Name = #{studentName}, Age = #{studentAge},
+            Gender = #{studentGender}, Course = #{studentCourse}
+        WHERE Id = #{studentId}
+    </update>
+
+    <delete id="deleteStudent" parameterType="int">
+        DELETE FROM Student WHERE Id = #{studentId}
+    </delete>
+
+</mapper>

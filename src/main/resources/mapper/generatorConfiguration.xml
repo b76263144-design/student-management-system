@@ -1,0 +1,35 @@
+<generatorConfiguration>
+    <context id="myContext" targetRuntime="MyBatis3">
+
+        <!-- ① CachePlugin: Adds <cache> to SQL Maps / 添加缓存元素 -->
+        <plugin type="org.mybatis.generator.plugins.CachePlugin">
+            <property name="cache_eviction"      value="LRU"/>
+            <property name="cache_size"          value="512"/>
+            <property name="cache_flushInterval"  value="60000"/>
+            <property name="cache_readOnly"      value="true"/>
+        </plugin>
+
+        <!-- ② VirtualPrimaryKeyPlugin: Treat ID1 & ID2 as PKs / 虚拟主键 -->
+        <plugin type="org.mybatis.generator.plugins.VirtualPrimaryKeyPlugin"/>
+
+        <!-- ③ CaseInsensitiveLikePlugin: Case-insensitive LIKE / 大小写不敏感 -->
+        <plugin type="org.mybatis.generator.plugins.CaseInsensitiveLikePlugin"/>
+
+        <!-- ④ MapperConfigPlugin: Generate MapperConfig.xml skeleton / 生成配置骨架 -->
+        <plugin type="org.mybatis.generator.plugins.MapperConfigPlugin">
+            <property name="targetPackage" value="com.mycompany.sql"/>
+            <property name="targetProject" value="src/main/resources"/>
+        </plugin>
+
+        <!-- ⑤ ToStringPlugin: Add toString() to model classes / 添加 toString -->
+        <plugin type="org.mybatis.generator.plugins.ToStringPlugin">
+            <property name="useToStringFromRoot" value="true"/>
+        </plugin>
+
+        <!-- VirtualPrimaryKey usage on a specific table / 虚拟主键用在具体表上 -->
+        <table tableName="student">
+            <property name="virtualKeyColumns" value="ID1, ID2"/>
+        </table>
+
+    </context>
+</generatorConfiguration>

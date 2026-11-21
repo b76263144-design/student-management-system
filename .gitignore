@@ -1,0 +1,16 @@
+# Maven build output
+target/
+*.class
+
+# Local DB credentials (keep the .example, ignore the real file)
+src/main/resources/db.properties
+
+# IDE / OS
+.idea/
+.vscode/
+*.iml
+.DS_Store
+__pycache__/
+
+# logs
+*.log
